@@ -2,6 +2,7 @@ package com.example.game;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.BlendMode;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -51,12 +52,12 @@ public class ConfigScreen extends AppCompatActivity {
         nameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                nameEditText.setError("Name cannot be empty or contain only whitespaces");
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                nameEditText.setError("Name cannot be empty or contain only whitespaces");
             }
 
             @Override
@@ -65,6 +66,7 @@ public class ConfigScreen extends AppCompatActivity {
                 if (name.isEmpty() || name.equals("")) {
                     nameEditText.setError("Name cannot be empty or contain only whitespaces");
                 } else {
+                    nextScreen.setEnabled(true);
                     nameEditText.setError(null);
                 }
             }
@@ -95,6 +97,9 @@ public class ConfigScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sprite = "green";
+                greenSprite.setBackgroundColor(-1);
+                redSprite.setBackgroundColor(0);
+                blueSprite.setBackgroundColor(0);
             }
         });
 
@@ -102,6 +107,9 @@ public class ConfigScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sprite = "red";
+                redSprite.setBackgroundColor(-1);
+                greenSprite.setBackgroundColor(0);
+                blueSprite.setBackgroundColor(0);
 
             }
         });
@@ -111,19 +119,27 @@ public class ConfigScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sprite = "blue";
+                blueSprite.setBackgroundColor(-1);
+                redSprite.setBackgroundColor(0);
+                greenSprite.setBackgroundColor(0);
             }
+
         });
 
+        if (!name.trim().equals("")) {
+            nextScreen.setEnabled(true);
+        }
         nextScreen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), GameScreen.class);
-                    Bundle b = new Bundle();
-                    b.putString("sprite", sprite);
-                    b.putString("level", difficulty);
-                    b.putString("name", name);
-                    intent.putExtras(b);
-                    startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), GameScreen.class);
+                Bundle b = new Bundle();
+                b.putString("sprite", sprite);
+                b.putString("level", difficulty);
+                b.putString("name", name);
+                intent.putExtras(b);
+                startActivity(intent);
+
             }
         });
 
