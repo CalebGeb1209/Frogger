@@ -4,24 +4,51 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.content.Intent;
+import android.widget.ImageButton;
+
 
 public class ConfigScreen extends AppCompatActivity {
+
+    private ImageButton greenSprite;
+    private ImageButton redSprite;
+    private ImageButton blueSprite;
+    private Button easyLevel;
+    private Button mediumLevel;
+    private Button hardLevel;
+    private Button nextScreen;
+
+    private String difficulty = "";
+    private String sprite = "";
+    private String name = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Strings for conditionals
 
 
+        // sprite buttons
+        blueSprite = (ImageButton) findViewById(R.id.imageButton8);
+        redSprite = (ImageButton) findViewById(R.id.imageButton9);
+        greenSprite = (ImageButton) findViewById(R.id.imageButton10);
+        // level buttons
+        easyLevel = (Button) findViewById(R.id.button3);
+        mediumLevel = (Button) findViewById(R.id.button2);
+        hardLevel = (Button) findViewById(R.id.button4);
+        // text edit
         EditText nameEditText = findViewById(R.id.editTextTextPersonName);
+        // next button
+        nextScreen = (Button) findViewById(R.id.button);
+
+
+
         nameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -35,14 +62,77 @@ public class ConfigScreen extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String name = s.toString().trim();
+                name = s.toString().trim();
                 if (name.isEmpty() || name.equals("")) {
                     nameEditText.setError("Name cannot be empty or contain only whitespaces");
                 } else {
                     nameEditText.setError(null);
                 }
             }
+
+        });
+        easyLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                difficulty = "Easy";
+            }
+        });
+
+        mediumLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                difficulty = "Medium";
+            }
+        });
+
+        hardLevel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                difficulty = "Hard";
+            }
+        });
+
+        greenSprite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sprite = "green";
+            }
+        });
+
+        redSprite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sprite = "red";
+
+            }
+        });
+
+
+        blueSprite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sprite = "blue";
+            }
+        });
+
+        nextScreen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), GameScreen.class);
+                    Bundle b = new Bundle();
+                    b.putString("sprite", sprite);
+                    b.putString("level", difficulty);
+                    b.putString("name", name);
+                    intent.putExtras(b);
+                    startActivity(intent);
+            }
         });
 
     }
+
+    public void openGameScreen() {
+        Intent intent = new Intent(this, GameScreen.class);
+        startActivity(intent);
+    }
+
 }
