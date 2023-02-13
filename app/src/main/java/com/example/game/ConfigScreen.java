@@ -2,7 +2,6 @@ package com.example.game;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.BlendMode;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;

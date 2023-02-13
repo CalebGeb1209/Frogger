@@ -15,15 +15,14 @@ public class WelcomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         button = findViewById(R.id.button1);
-        button.setOnClickListener(new View.OnClickListener(){
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openConfigScreen();
 
             }
-        })
-    ;}
-    public void openConfigScreen(){
+        }); }
+    public void openConfigScreen() {
         Intent intent = new Intent(this, ConfigScreen.class);
         startActivity(intent);
     }
