@@ -12,9 +12,6 @@
         android:theme="@style/Theme.Game"
         tools:targetApi="31">
         <activity
-            android:name=".ConfigScreen"
-            android:exported="false" />
-        <activity
             android:name=".WelcomeScreen"
             android:exported="true">
             <intent-filter>
