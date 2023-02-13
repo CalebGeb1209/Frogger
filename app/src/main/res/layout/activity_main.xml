@@ -94,22 +94,6 @@
         app:layout_constraintVertical_bias="0.196" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#A9FFFFFF"
-        android:backgroundTint="#AAC1DA"
-        android:text="Potential Error Message"
-        android:textColor="#E40E0E"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.388"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.254" />
-
-    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -234,6 +218,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.901"
         app:srcCompat="@drawable/pixelhearts1" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
