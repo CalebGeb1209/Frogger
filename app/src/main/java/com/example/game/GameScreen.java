@@ -47,6 +47,7 @@ public class GameScreen extends AppCompatActivity {
         View game = findViewById(R.id.parent);
         game.setOnTouchListener((View.OnTouchListener) (view, event) -> {
             int xCoordinate = (int) event.getX();
+            int yCoordinate = (int) event.getY();
 
             if (xCoordinate < (grid.getWidth() / 3)) {
                 if (!grid.isAtXBoundary("L")) {
@@ -54,9 +55,12 @@ public class GameScreen extends AppCompatActivity {
                     grid.setPlayerX(grid.getPlayerX() - 1);
                 }
             } else if (xCoordinate < (grid.getWidth() / 3 * 2)) {
-                if (!grid.isAtYBoundary()) {
+                if (yCoordinate <= (grid.getHeight()) / 2 && !grid.isAtYBoundary("U")) {
                     spriteParams.topMargin = grid.getPlayerYCoordinate() - grid.getTilePxFactor();
                     grid.setPlayerY(grid.getPlayerY() - 1);
+                } else if (yCoordinate > (grid.getHeight() / 2) && !grid.isAtYBoundary("D")) {
+                    spriteParams.topMargin = grid.getPlayerYCoordinate() + grid.getTilePxFactor();
+                    grid.setPlayerY(grid.getPlayerY() + 1);
                 }
             } else {
                 if (!grid.isAtXBoundary("R")) {

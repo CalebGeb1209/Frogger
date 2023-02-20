@@ -82,7 +82,8 @@ public class GameGrid {
                 || (direction.equals("R") && getPlayerX() == grid[0].length - 1);
     } // isAtXBoundary
 
-    public boolean isAtYBoundary() {
-        return getPlayerY() == 1;
+    public boolean isAtYBoundary(String direction) {
+        return (direction.equals("U") && getPlayerY() == 1)
+                || (direction.equals("D") && getPlayerY() == grid.length - 1);
     } // isAtYBoundary
 } // GameGrid
