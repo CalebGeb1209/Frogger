@@ -2,26 +2,24 @@ package com.example.game;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class GameScreen extends AppCompatActivity {
 
     private TextView levelDetermination;
-
     private TextView nameDetermination;
     private TextView pointDetermination;
-    private ImageButton spriteGreen;
-    private ImageButton spriteBlue;
-
-    private ImageButton spriteRed;
-    private ImageView oneLife;
-    private ImageView twoLives;
-    private ImageView threeLives;
+    private ImageButton activeSprite;
+    private ImageView activeLives;
+    private Bundle bundle;
+    private GameGrid grid;
+    private ConstraintLayout.LayoutParams spriteParams;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,41 +28,78 @@ public class GameScreen extends AppCompatActivity {
         levelDetermination = (TextView) findViewById(R.id.difficulty);
         nameDetermination = (TextView) findViewById(R.id.name);
         pointDetermination = (TextView) findViewById(R.id.points);
+        bundle = getIntent().getExtras();
 
-        Bundle bundle = getIntent().getExtras();
-        String sprite = bundle.getString("sprite");
-        String difficulty = bundle.getString("level");
+        grid = new GameGrid(this, 120);
+
+        setText();
+        setDifficulty();
+        setSprite();
+        setupNavigation();
+    } // onCreate
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setupNavigation() {
+        spriteParams = (ConstraintLayout.LayoutParams) activeSprite.getLayoutParams();
+        spriteParams.leftMargin = grid.getPlayerXCoordinate();
+        spriteParams.topMargin = grid.getPlayerYCoordinate();
+
+        View game = findViewById(R.id.parent);
+        game.setOnTouchListener((View.OnTouchListener) (view, event) -> {
+            int xCoordinate = (int) event.getX();
+
+            if (xCoordinate < (grid.getWidth() / 3)) {
+                if (!grid.isAtXBoundary("L")) {
+                    spriteParams.leftMargin = grid.getPlayerXCoordinate() - grid.getTilePxFactor();
+                    grid.setPlayerX(grid.getPlayerX() - 1);
+                }
+            } else if (xCoordinate < (grid.getWidth() / 3 * 2)) {
+                if (!grid.isAtYBoundary()) {
+                    spriteParams.topMargin = grid.getPlayerYCoordinate() - grid.getTilePxFactor();
+                    grid.setPlayerY(grid.getPlayerY() - 1);
+                }
+            } else {
+                if (!grid.isAtXBoundary("R")) {
+                    spriteParams.leftMargin = grid.getPlayerXCoordinate() + grid.getTilePxFactor();
+                    grid.setPlayerX(grid.getPlayerX() + 1);
+                }
+            }
+
+            activeSprite.setLayoutParams(spriteParams);
+            return false;
+        });
+    } // setupNavigation
+
+    private void setText() {
         String name = bundle.getString("name");
 
         nameDetermination.setText(name);
         pointDetermination.setText("0 Points");
+    } // setText
 
+    private void setDifficulty() {
+        String difficulty = bundle.getString("level");
 
         if (difficulty.equals("Hard")) {
-            oneLife = (ImageView) findViewById(R.id.imageView6);
-            oneLife.setVisibility(View.VISIBLE);
+            activeLives = (ImageView) findViewById(R.id.imageView6);
         } else if (difficulty.equals("Easy")) {
-            twoLives = (ImageView) findViewById(R.id.imageView2);
-            twoLives.setVisibility(View.VISIBLE);
+            activeLives = (ImageView) findViewById(R.id.imageView2);
         } else if (difficulty.equals("Medium")) {
-            threeLives = (ImageView) findViewById(R.id.imageView5);
-            threeLives.setVisibility(View.VISIBLE);
+            activeLives = (ImageView) findViewById(R.id.imageView5);
         }
+        activeLives.setVisibility(View.VISIBLE);
+    } // setDifficulty
 
+    private void setSprite() {
+        String sprite = bundle.getString("sprite");
 
         if (sprite.equals("green")) {
-            spriteGreen = (ImageButton) findViewById(R.id.imageButton10);
-            spriteGreen.setVisibility(View.VISIBLE);
+            activeSprite = (ImageButton) findViewById(R.id.imageButton10);
         } else if (sprite.equals("blue")) {
-            spriteBlue = (ImageButton) findViewById(R.id.imageButton8);
-            spriteBlue.setVisibility(View.VISIBLE);
-
+            activeSprite = (ImageButton) findViewById(R.id.imageButton8);
         } else if (sprite.equals("red")) {
-            spriteRed = (ImageButton) findViewById(R.id.imageButton9);
-            spriteRed.setVisibility(View.VISIBLE);
+            activeSprite = (ImageButton) findViewById(R.id.imageButton9);
         }
-
-
-
-    }
-}
+        activeSprite.setVisibility(View.VISIBLE);
+    } // setSprite
+} // GameScreen
