@@ -2,15 +2,10 @@ package com.example.game;
 
 import android.app.Activity;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.content.Context;
-import android.widget.LinearLayout;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 
 public class GameGrid {
@@ -131,6 +126,6 @@ public class GameGrid {
 
     public boolean isAtYBoundary(String direction) {
         return (direction.equals("U") && getPlayerY() == 1)
-                || (direction.equals("D") && getPlayerY() == grid.length - 1);
+                || (direction.equals("D") && getPlayerY() == grid.length - 2);
     } // isAtYBoundary
 } // GameGrid

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,16 +62,23 @@ public class ConfigScreen extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+
                 name = s.toString().trim();
                 if (name.isEmpty() || name.equals("")) {
+                    nextScreen.setClickable(false);
                     nameEditText.setError("Name cannot be empty or contain only whitespaces");
+
                 } else {
                     nextScreen.setEnabled(true);
                     nameEditText.setError(null);
+
                 }
             }
 
         });
+        nameEditText.setText(name);
+
+
         easyLevel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
