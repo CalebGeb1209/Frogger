@@ -77,6 +77,7 @@ public class SprintTwoUnitTests {
      *
      */
     @Test
+    // Harris
     public void isRedSpriteClickable() {
         // can make these for all sprites AND buttons if we want to fudge it
         onView(withId(R.id.editTextTextPersonName))
@@ -91,11 +92,31 @@ public class SprintTwoUnitTests {
      *
      */
     @Test
+    // Harris
     public void validNameTest() {
         onView(withId(R.id.editTextTextPersonName))
                 .perform(typeText("User Name"));
         onView(withId(R.id.editTextTextPersonName)).check(matches(withText("User Name")));
     }
+
+    /**
+     * Checks if name test is displayed on config screen
+     */
+    @Test
+    // Srihith
+    public void isNameTextDisplayed() {
+        onView(withId(R.id.textView2)).check(matches(isDisplayed()));
+    }
+
+    /**
+     * Checks if difficulty test is displayed on config screen
+     */
+    @Test
+    // Srihith
+    public void isDifficultyTextDisplayed() {
+        onView(withId(R.id.textView)).check(matches(isDisplayed()));
+    }
+
 
     /**
      * Test to check if user can advance to next screen with invalid white space name
