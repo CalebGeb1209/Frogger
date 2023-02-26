@@ -99,15 +99,17 @@ public class SprintTwoUnitTests {
         onView(withId(R.id.imageButton10)).check(matches(isClickable()));
     }
     /**
-     * Test to check if blue sprite is clickable.
+     * Test to check if blue sprite is clickable
+     *
      */
     @Test
+    //Yaphet
     public void isBlueSpriteClickable() {
         onView(withId(R.id.editTextTextPersonName))
                 .perform(typeText("User Name"));
 
-        onView(withId(R.id.imageButton8)).perform(click());
-        onView(withId(R.id.imageButton8)).check(matches(isClickable()));
+        onView(withId(R.id.imageButton10)).perform(click());
+        onView(withId(R.id.imageButton10)).check(matches(isClickable()));
     }
 
     /**
@@ -213,6 +215,20 @@ public class SprintTwoUnitTests {
 
         onView(withId(R.id.imageView6)).check(matches(isDisplayed()));
     }
+
+    /**
+     * Test to ensure that the game screen is displayed when the
+     * "Start Game" button is clicked on the configuration screen.
+     */
+    //Yaphet
+    @Test
+    public void startGameTest() {
+        onView(withId(R.id.editTextTextPersonName)).perform(typeText("User Name"));
+        onView(withId(R.id.imageButton9)).perform(click());
+        onView(withId(R.id.button2)).check(matches(isClickable()));
+        onView(withId(R.id.textView)).check(matches(isDisplayed()));
+    }
+
 
 
 }
