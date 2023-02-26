@@ -146,6 +146,7 @@ public class SprintTwoUnitTests {
      * Checks if character choice text is displayed on config screen
      */
     @Test
+    // Caleb
     public void isCharacterTextDisplayed() {
         onView(withId(R.id.textView)).check(matches(isDisplayed()));
     }
@@ -154,6 +155,7 @@ public class SprintTwoUnitTests {
      *
      */
     @Test
+    // Caleb
     public void invalidNameTest() {
         onView(withId(R.id.editTextTextPersonName))
                 .perform(typeText(" "));
