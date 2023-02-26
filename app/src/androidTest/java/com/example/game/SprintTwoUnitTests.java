@@ -19,6 +19,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.ViewAssertion;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -79,12 +80,23 @@ public class SprintTwoUnitTests {
     @Test
     // Harris
     public void isRedSpriteClickable() {
-        // can make these for all sprites AND buttons if we want to fudge it
         onView(withId(R.id.editTextTextPersonName))
                 .perform(typeText("User Name"));
 
         onView(withId(R.id.imageButton9)).perform(click());
         onView(withId(R.id.imageButton9)).check(matches(isClickable()));
+    }
+
+    /**
+     * Test to check if green sprite is clickable.
+     */
+    @Test
+    public void isGreenSpriteClickable() {
+        onView(withId(R.id.editTextTextPersonName))
+                .perform(typeText("User Name"));
+
+        onView(withId(R.id.imageButton10)).perform(click());
+        onView(withId(R.id.imageButton10)).check(matches(isClickable()));
     }
     /**
      * Test to check if blue sprite is clickable
@@ -100,7 +112,6 @@ public class SprintTwoUnitTests {
         onView(withId(R.id.imageButton10)).check(matches(isClickable()));
     }
 
-
     /**
      * Test to check if name is displayed correctly given a valid input
      *
@@ -114,7 +125,7 @@ public class SprintTwoUnitTests {
     }
 
     /**
-     * Checks if name test is displayed on config screen
+     * Checks if name text is displayed on config screen
      */
     @Test
     // Srihith
@@ -123,15 +134,21 @@ public class SprintTwoUnitTests {
     }
 
     /**
-     * Checks if difficulty test is displayed on config screen
+     * Checks if difficulty text is displayed on config screen
      */
     @Test
     // Srihith
     public void isDifficultyTextDisplayed() {
-        onView(withId(R.id.textView)).check(matches(isDisplayed()));
+        onView(withId(R.id.textView3)).check(matches(isDisplayed()));
     }
 
-
+    /**
+     * Checks if character choice text is displayed on config screen
+     */
+    @Test
+    public void isCharacterTextDisplayed() {
+        onView(withId(R.id.textView)).check(matches(isDisplayed()));
+    }
     /**
      * Test to check if user can advance to next screen with invalid white space name
      *
@@ -146,24 +163,58 @@ public class SprintTwoUnitTests {
     }
 
     /**
-     * Test to check if user has correct amount of lives based on chosen difficutly
-     * doesnt work!!! have to figure out how to go to config screen then game screen
-     * correctly... dont know what is going on..
+     * Test to check if user has 3 lives based on chosen difficulty easy
      *
      */
-//    @Test
-//    public void difficultyTest() {
-//        onView(withId(R.id.editTextTextPersonName))
-//                .perform(typeText("User Name"));
-//
-//        onView(withId(R.id.imageButton9)).perform(click());
-//
-//        onView(withId(R.id.button2)).perform(longClick());
-//        //onView(withId(R.id.button)).perform(click());
-//
-//        onView(withId(R.id.imageView5)).check(matches(isDisplayed()));
-//    }
+    @Test
+    //Sena Korkaya
+    public void difficultyEasyTest() {
+        onView(withId(R.id.editTextTextPersonName))
+                .perform(typeText("User Name"));
+        Espresso.closeSoftKeyboard();
 
+        onView(withId(R.id.button3)).perform(click());
+
+        onView(withId(R.id.imageButton10)).perform(click());
+
+        onView(withId(R.id.imageView2)).check(matches(isDisplayed()));
+   }
+
+    /**
+     * Test to check if user has 2 lives based on chosen difficulty medium
+     *
+     */
+    @Test
+    //Sena Korkaya
+    public void difficultyMediumTest() {
+        onView(withId(R.id.editTextTextPersonName))
+                .perform(typeText("User Name"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.button2)).perform(click());
+
+        onView(withId(R.id.imageButton10)).perform(click());
+
+        onView(withId(R.id.imageView5)).check(matches(isDisplayed()));
+    }
+
+    /**
+     * Test to check if user has 1 life based on chosen difficulty hard
+     *
+     */
+    @Test
+    //Sena Korkaya
+    public void difficultyHardTest() {
+        onView(withId(R.id.editTextTextPersonName))
+                .perform(typeText("User Name"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.button4)).perform(click());
+
+        onView(withId(R.id.imageButton10)).perform(click());
+
+        onView(withId(R.id.imageView6)).check(matches(isDisplayed()));
+    }
 
     /**
      * Test to ensure that the game screen is displayed when the
