@@ -1,6 +1,6 @@
 package com.example.game;
 
-public class RoadTile {
+public class RoadTile extends Tile {
 
     // includes a list of subobjects in array form
 
