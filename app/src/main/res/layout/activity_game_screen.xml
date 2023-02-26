@@ -21,12 +21,12 @@
         android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.8"
         android:textAlignment="center"
         android:textSize="40sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="-55dp"
-        tools:layout_editor_absoluteY="-16dp" />
+        tools:layout_editor_absoluteX="-74dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:elevation="2dp" />
 
     <TextView
         android:id="@+id/points"
@@ -42,6 +42,7 @@
         app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:elevation="2dp"
         app:layout_constraintVertical_bias="0.02" />
 
     <ImageView
@@ -51,7 +52,8 @@
         android:visibility="invisible"
         app:layout_constraintHorizontal_bias="0.945"
         app:layout_constraintVertical_bias="0.02"
-        app:srcCompat="@drawable/pixelhearts3" />
+        app:srcCompat="@drawable/pixelhearts3"
+        android:elevation="2dp"/>
 
     <ImageView
         android:id="@+id/imageView5"
@@ -59,7 +61,8 @@
         android:layout_height="100dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:srcCompat="@drawable/pixelhearts2" />
+        app:srcCompat="@drawable/pixelhearts2"
+        android:elevation="2dp"/>
 
     <ImageView
         android:id="@+id/imageView6"
@@ -72,7 +75,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/pixelhearts1" />
+        app:srcCompat="@drawable/pixelhearts1"
+        android:elevation="2dp"/>
 
     <ImageButton
         android:id="@+id/imageButton8"
@@ -88,7 +92,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/frogspriteblue__1_" />
+        app:srcCompat="@drawable/frogspriteblue__1_"
+        android:elevation="2dp"/>
 
     <ImageButton
         android:id="@+id/imageButton9"
@@ -103,7 +108,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/frogspriteredresized" />
+        app:srcCompat="@drawable/frogspriteredresized"
+        android:elevation="2dp"/>
 
     <ImageButton
         android:id="@+id/imageButton10"
@@ -118,8 +124,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/frogspritegreenresized" />
+        app:srcCompat="@drawable/frogspritegreenresized"
+        android:elevation="2dp"/>
+
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:rowCount="16"
+        android:columnCount="9"
+        android:layout_marginTop="18dp"
+        tools:context=".GameActivity">
+
+    </GridLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 

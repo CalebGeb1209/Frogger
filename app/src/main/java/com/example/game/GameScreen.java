@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,11 +32,13 @@ public class GameScreen extends AppCompatActivity {
         bundle = getIntent().getExtras();
 
         grid = new GameGrid(this, 120);
+        GridLayout gridLayout = findViewById(R.id.grid);
 
         setText();
         setDifficulty();
         setSprite();
         setupNavigation();
+        grid.populate(gridLayout);
     } // onCreate
 
     @SuppressLint("ClickableViewAccessibility")
