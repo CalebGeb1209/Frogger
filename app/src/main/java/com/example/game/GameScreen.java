@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
@@ -21,6 +22,8 @@ public class GameScreen extends AppCompatActivity {
     private Bundle bundle;
     private GameGrid grid;
     private ConstraintLayout.LayoutParams spriteParams;
+    private int maxLevelReached;
+    private int points;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,31 @@ public class GameScreen extends AppCompatActivity {
         setDifficulty();
         setSprite();
         setupNavigation();
+        setupScore();
         grid.populate(gridLayout);
     } // onCreate
+
+    private void setupScore() {
+        maxLevelReached = 15;
+        points = 0;
+        grid.setPlayerY(15);
+    } // setupPoints
+
+    private void updateScore() {
+        if (grid.getPlayerY() < maxLevelReached) {
+            if (grid.getPlayerY() + 1 < 2) {
+                points++;
+            } else if (grid.getPlayerY() + 1 < 9) {
+                points += 2;
+            } else if (grid.getPlayerY() + 1 < 15 && grid.getPlayerY() + 1 > 9) {
+                points += 3;
+            } else {
+                points++;
+            }
+            maxLevelReached--;
+            pointDetermination.setText(points + " Pts");
+        }
+    } // updateScore
 
     @SuppressLint("ClickableViewAccessibility")
     private void setupNavigation() {
@@ -56,21 +82,26 @@ public class GameScreen extends AppCompatActivity {
                 if (!grid.isAtXBoundary("L")) {
                     spriteParams.leftMargin = grid.getPlayerXCoordinate() - grid.getTilePxFactor();
                     grid.setPlayerX(grid.getPlayerX() - 1);
+                    Log.d("X", String.valueOf(grid.getPlayerX()));
                 }
             } else if (xCoordinate < (grid.getWidth() / 3 * 2)) {
                 if (yCoordinate <= (grid.getHeight()) / 2 && !grid.isAtYBoundary("U")) {
                     spriteParams.topMargin = grid.getPlayerYCoordinate() - grid.getTilePxFactor();
                     grid.setPlayerY(grid.getPlayerY() - 1);
+                    Log.d("Y", String.valueOf(grid.getPlayerY()));
                 } else if (yCoordinate > (grid.getHeight() / 2) && !grid.isAtYBoundary("D")) {
                     spriteParams.topMargin = grid.getPlayerYCoordinate() + grid.getTilePxFactor();
                     grid.setPlayerY(grid.getPlayerY() + 1);
+                    Log.d("Y", String.valueOf(grid.getPlayerY()));
                 }
             } else {
                 if (!grid.isAtXBoundary("R")) {
                     spriteParams.leftMargin = grid.getPlayerXCoordinate() + grid.getTilePxFactor();
                     grid.setPlayerX(grid.getPlayerX() + 1);
+                    Log.d("X", String.valueOf(grid.getPlayerX()));
                 }
             }
+            updateScore();
 
             activeSprite.setLayoutParams(spriteParams);
             return false;
