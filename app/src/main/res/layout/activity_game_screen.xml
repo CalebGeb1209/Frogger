@@ -140,7 +140,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/frogspritegreenresized"
+        app:srcCompat="@mipmap/frogcar1_foreground"
         android:elevation="2dp"/>
 
     <ImageButton
@@ -156,7 +156,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/frogspriteredresized"
+        app:srcCompat="@mipmap/frogcar3_foreground"
         android:elevation="2dp"/>
 
     <ImageButton
@@ -172,7 +172,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/frogspriteblue__1_"
+        app:srcCompat="@mipmap/frogcar2_foreground"
         android:elevation="2dp"/>
 
     <ImageButton
@@ -188,7 +188,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/frogspritegreenresized"
+        app:srcCompat="@mipmap/frogcar3_foreground"
         android:elevation="2dp"/>
 
     <ImageButton
@@ -204,7 +204,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/frogspriteblue__1_"
+        app:srcCompat="@mipmap/frogcar1_foreground"
         android:elevation="2dp"/>
 
     <GridLayout
