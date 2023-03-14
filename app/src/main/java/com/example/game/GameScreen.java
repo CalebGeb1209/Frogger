@@ -19,7 +19,7 @@ public class GameScreen extends AppCompatActivity {
 
     private TextView levelDetermination;
     private TextView nameDetermination;
-    private TextView pointDetermination;
+    TextView pointDetermination;
     private ImageButton activeSprite;
 
     private ImageButton car1;
@@ -29,7 +29,7 @@ public class GameScreen extends AppCompatActivity {
     private ImageButton car5;
     private ImageView activeLives;
     private Bundle bundle;
-    private GameGrid grid;
+    GameGrid grid;
     private ConstraintLayout.LayoutParams spriteParams;
 
     private ConstraintLayout.LayoutParams car1Params;
@@ -80,7 +80,7 @@ public class GameScreen extends AppCompatActivity {
         grid.setPlayerY(15);
     } // setupPoints
 
-    private void updateScore() {
+    void updateScore() {
         if (grid.getPlayerY() < maxLevelReached) {
             if (grid.getPlayerY() + 1 < 2) {
                 points++;
