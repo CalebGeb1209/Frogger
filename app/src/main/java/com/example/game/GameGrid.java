@@ -26,7 +26,7 @@ public class GameGrid {
         this.activity = activity;
         this.grid =
                 new Tile[this.height / this.tilePxFactor][this.width / this.tilePxFactor];
-        this.playerCoord = new int[]{(grid[0].length / 2) - 1, grid.length - 1};
+        this.playerCoord = new int[]{(grid[0].length / 2) - 1, grid.length - 2};
     } // GameGrid
 
     public void populate(GridLayout layout) {
