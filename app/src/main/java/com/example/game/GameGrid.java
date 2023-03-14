@@ -1,12 +1,10 @@
 package com.example.game;
 
 import android.app.Activity;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import java.util.Random;
 
 
 
@@ -66,23 +64,6 @@ public class GameGrid {
                 layout.addView(img, layoutParams);
             }
         }
-        //Random rand = new Random();
-        //Vehicle[] bobs = new Vehicle[5];
-        //Handler handler = new Handler();
-        //for (int i = 0; i < 5; i++) {
-//            int n = rand.nextInt(3) + 1;
-//            bobs[i] = new Vehicle(n, activity, i + 10, width, tilePxFactor);
-//
-//        }
-//        Runnable runnable = new Runnable() {
-//            public void run() {
-//                Vehicle.updateVehicleX(bobs);
-//                //Thread thread = new Thread();
-//                //thread.start();
-//                handler.postDelayed(this, 0);
-//            }
-//        };
-//        handler.postDelayed(runnable, 0);
     } // populate
 
 
