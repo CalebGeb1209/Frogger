@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
@@ -12,16 +14,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+
+
 public class GameScreen extends AppCompatActivity {
 
     private TextView levelDetermination;
     private TextView nameDetermination;
     private TextView pointDetermination;
     private ImageButton activeSprite;
+
+    private ImageButton car1;
+    private ImageButton car2;
+    private ImageButton car3;
+    private ImageButton car4;
+    private ImageButton car5;
     private ImageView activeLives;
     private Bundle bundle;
     private GameGrid grid;
     private ConstraintLayout.LayoutParams spriteParams;
+
+    private ConstraintLayout.LayoutParams car1Params;
+    private ConstraintLayout.LayoutParams car2Params;
+    private ConstraintLayout.LayoutParams car3Params;
+    private ConstraintLayout.LayoutParams car4Params;
+    private ConstraintLayout.LayoutParams car5Params;
     private int maxLevelReached;
     private int points;
 
@@ -43,6 +59,20 @@ public class GameScreen extends AppCompatActivity {
         setupNavigation();
         setupScore();
         grid.populate(gridLayout);
+        setUpCars();
+        new CountDownTimer(1000000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                Log.d("hello", ":)");
+                manageCars();
+            }
+
+            @Override
+            public void onFinish() {
+                // Code to execute when the timer is finished
+            }
+        }.start();
+
     } // onCreate
 
     private void setupScore() {
@@ -140,4 +170,73 @@ public class GameScreen extends AppCompatActivity {
         }
         activeSprite.setVisibility(View.VISIBLE);
     } // setSprite
+
+    private void setUpCars() {
+        car1 = (ImageButton) findViewById(R.id.car1);
+        car1.setVisibility(View.VISIBLE);
+        car1Params = (ConstraintLayout.LayoutParams) car1.getLayoutParams();
+        car1Params.topMargin = grid.getTilePxFactor() * 14;
+        car1.setLayoutParams(car1Params);
+
+        car2 = (ImageButton) findViewById(R.id.car2);
+        car2.setVisibility(View.VISIBLE);
+        car2Params = (ConstraintLayout.LayoutParams) car2.getLayoutParams();
+        car2Params.topMargin = grid.getTilePxFactor() * 13;
+        car2.setLayoutParams(car1Params);
+
+        car3 = (ImageButton) findViewById(R.id.car3);
+        car3.setVisibility(View.VISIBLE);
+        car3Params = (ConstraintLayout.LayoutParams) car3.getLayoutParams();
+        car3Params.topMargin = grid.getTilePxFactor() * 12;
+        car3.setLayoutParams(car3Params);
+
+        car4 = (ImageButton) findViewById(R.id.car4);
+        car4.setVisibility(View.VISIBLE);
+        car4Params = (ConstraintLayout.LayoutParams) car4.getLayoutParams();
+        car4Params.topMargin = grid.getTilePxFactor() * 11;
+        car4.setLayoutParams(car4Params);
+
+        car5 = (ImageButton) findViewById(R.id.car5);
+        car5.setVisibility(View.VISIBLE);
+        car5Params = (ConstraintLayout.LayoutParams) car5.getLayoutParams();
+        car5Params.topMargin = grid.getTilePxFactor() * 10;
+        car5.setLayoutParams(car5Params);
+    }
+
+    private void manageCars() {
+        if (car1Params.leftMargin <= 0) {
+            car1Params.leftMargin = 1000;
+        } else {
+            car1Params.leftMargin = car1Params.leftMargin - 100;
+        }
+        car1.setLayoutParams(car1Params);
+
+        if (car2Params.leftMargin <= 0) {
+            car2Params.leftMargin = 1000;
+        } else {
+            car2Params.leftMargin = car2Params.leftMargin - 150;
+        }
+        car2.setLayoutParams(car2Params);
+
+        if (car3Params.leftMargin <= 0) {
+            car3Params.leftMargin = 1000;
+        } else {
+            car3Params.leftMargin = car3Params.leftMargin - 50;
+        }
+        car3.setLayoutParams(car3Params);
+
+        if (car4Params.leftMargin <= 0) {
+            car4Params.leftMargin = 1000;
+        } else {
+            car4Params.leftMargin = car4Params.leftMargin - 150;
+        }
+        car4.setLayoutParams(car4Params);
+
+        if (car5Params.leftMargin <= 0) {
+            car5Params.leftMargin = 1000;
+        } else {
+            car5Params.leftMargin = car5Params.leftMargin - 75;
+        }
+        car5.setLayoutParams(car5Params);
+    }
 } // GameScreen
