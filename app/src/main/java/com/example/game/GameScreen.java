@@ -224,17 +224,17 @@ public class GameScreen extends AppCompatActivity {
         }
         car3.setLayoutParams(car3Params);
 
-        if (car4Params.leftMargin <= 0) {
-            car4Params.leftMargin = 1000;
+        if (car4Params.leftMargin >= 1000) {
+            car4Params.leftMargin = 0;
         } else {
-            car4Params.leftMargin = car4Params.leftMargin - 150;
+            car4Params.leftMargin = car4Params.leftMargin + 150;
         }
         car4.setLayoutParams(car4Params);
 
-        if (car5Params.leftMargin <= 0) {
-            car5Params.leftMargin = 1000;
+        if (car5Params.leftMargin >= 1000) {
+            car5Params.leftMargin = 0;
         } else {
-            car5Params.leftMargin = car5Params.leftMargin - 75;
+            car5Params.leftMargin = car5Params.leftMargin + 75;
         }
         car5.setLayoutParams(car5Params);
     }
