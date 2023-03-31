@@ -19,7 +19,6 @@ public class WelcomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openConfigScreen();
-
             }
         }); }
     public void openConfigScreen() {

@@ -3,6 +3,9 @@ package com.example.game;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -13,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 
 
 public class GameScreen extends AppCompatActivity {
@@ -39,6 +44,13 @@ public class GameScreen extends AppCompatActivity {
     private ConstraintLayout.LayoutParams car5Params;
     private int maxLevelReached;
     private int points;
+    private int hitbox = 120;
+    private Rect car1Rect = new Rect();
+    private Rect car2Rect = new Rect();
+    private Rect car3Rect = new Rect();
+    private Rect car4Rect = new Rect();
+    private Rect car5Rect = new Rect();
+    private Rect playerRect = new Rect();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +74,8 @@ public class GameScreen extends AppCompatActivity {
         new CountDownTimer(1000000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                Log.d("hello", ":)");
                 manageCars();
+                getCarCollision();
             }
 
             @Override
@@ -113,22 +125,54 @@ public class GameScreen extends AppCompatActivity {
                     grid.setPlayerX(grid.getPlayerX() - 1);
                     Log.d("X", String.valueOf(grid.getPlayerX()));
                 }
+                getCarCollision();
             } else if (xCoordinate < (grid.getWidth() / 3 * 2)) {
                 if (yCoordinate <= (grid.getHeight()) / 2 && !grid.isAtYBoundary("U")) {
                     spriteParams.topMargin = grid.getPlayerYCoordinate() - grid.getTilePxFactor();
                     grid.setPlayerY(grid.getPlayerY() - 1);
                     Log.d("Y", String.valueOf(grid.getPlayerY()));
+                    if (grid.contactMade()) {
+                        pointDetermination.setText("0 Points");
+                        grid.resetCoords();
+                        spriteParams.topMargin = grid.getPlayerYCoordinate();
+                        spriteParams.leftMargin = grid.getPlayerXCoordinate();
+                        if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) { // hard 1
+                            try {
+                                FileOutputStream file = openFileOutput("score.txt", Context.MODE_PRIVATE);
+                                PrintWriter writer = new PrintWriter(file);
+                                writer.println(points);
+                                writer.close();
+                                file.close();
+                            } catch (Exception e) {
+                                Log.d("Exception", "Exception");
+                            }
+
+                            Intent intent = new Intent(this, GameOverScreen.class);
+                            startActivity(intent);
+                        } else if (findViewById(R.id.imageView2).getVisibility() == View.VISIBLE) { // easy 3
+                            findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
+                            findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
+                            points = 0;
+                            maxLevelReached = 15;
+                        } else if (findViewById(R.id.imageView5).getVisibility() == View.VISIBLE) { // medium 2
+                            findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                            findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
+                            points = 0;
+                            maxLevelReached = 15;
+                        }
+                    }
                 } else if (yCoordinate > (grid.getHeight() / 2) && !grid.isAtYBoundary("D")) {
                     spriteParams.topMargin = grid.getPlayerYCoordinate() + grid.getTilePxFactor();
-                    grid.setPlayerY(grid.getPlayerY() + 1);
-                    Log.d("Y", String.valueOf(grid.getPlayerY()));
+                     grid.setPlayerY(grid.getPlayerY() + 1);
                 }
+                getCarCollision();
             } else {
                 if (!grid.isAtXBoundary("R")) {
                     spriteParams.leftMargin = grid.getPlayerXCoordinate() + grid.getTilePxFactor();
                     grid.setPlayerX(grid.getPlayerX() + 1);
                     Log.d("X", String.valueOf(grid.getPlayerX()));
                 }
+                getCarCollision();
             }
             updateScore();
 
@@ -238,4 +282,58 @@ public class GameScreen extends AppCompatActivity {
         }
         car5.setLayoutParams(car5Params);
     }
+
+    private void shrinkBox(Rect rect) {
+        int currHeight = rect.bottom - rect.top;
+        int newHeight = (int) (currHeight * 0.2);
+        int displacement = (int)((currHeight - newHeight) / 3);
+        rect.top += displacement;
+        rect.bottom = rect.top + newHeight;
+    } // shrinkBox
+    private void getCarCollision() {
+        activeSprite.getGlobalVisibleRect(playerRect);
+        car1.getGlobalVisibleRect(car1Rect);
+        car2.getGlobalVisibleRect(car2Rect);
+        car3.getGlobalVisibleRect(car3Rect);
+        car4.getGlobalVisibleRect(car4Rect);
+        car5.getGlobalVisibleRect(car5Rect);
+
+        shrinkBox(playerRect);
+        shrinkBox(car1Rect);
+        shrinkBox(car2Rect);
+        shrinkBox(car3Rect);
+        shrinkBox(car4Rect);
+        shrinkBox(car5Rect);
+
+        if (playerRect.intersect(car1Rect) || playerRect.intersect(car2Rect) || playerRect.intersect(car3Rect) || playerRect.intersect(car4Rect) || playerRect.intersect(car5Rect)) {
+            pointDetermination.setText("0 Points");
+            grid.resetCoords();
+            spriteParams.topMargin = grid.getPlayerYCoordinate();
+            spriteParams.leftMargin = grid.getPlayerXCoordinate();
+            if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) { // hard 1
+                try {
+                    FileOutputStream file = openFileOutput("score.txt", Context.MODE_PRIVATE);
+                    PrintWriter writer = new PrintWriter(file);
+                    writer.println(points);
+                    writer.close();
+                    file.close();
+                } catch (Exception e) {
+                    Log.d("Exception", "Exception");
+                }
+
+                Intent intent = new Intent(this, GameOverScreen.class);
+                startActivity(intent);
+            } else if (findViewById(R.id.imageView2).getVisibility() == View.VISIBLE) { // easy 3
+                findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
+                findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
+                points = 0;
+                maxLevelReached = 15;
+            } else if (findViewById(R.id.imageView5).getVisibility() == View.VISIBLE) { // medium 2
+                findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
+                points = 0;
+                maxLevelReached = 15;
+            }
+        }
+    } // getCarCollision
 } // GameScreen

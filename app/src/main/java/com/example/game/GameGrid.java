@@ -29,6 +29,11 @@ public class GameGrid {
         this.playerCoord = new int[]{(grid[0].length / 2) - 1, grid.length - 2};
     } // GameGrid
 
+    public void resetCoords() {
+        setPlayerX((grid[0].length / 2) - 1);
+        setPlayerY(grid.length - 2);
+    } // resetCoords
+
     public void populate(GridLayout layout) {
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 9; j++) {
@@ -66,23 +71,6 @@ public class GameGrid {
         }
     } // populate
 
-
-    public void buildRoadBiome() {
-
-    } // buildRoadBiome
-
-    public void buildRiverBiome() {
-
-    } // buildRiverBiome
-
-    public void buildSafeBiome() {
-
-    } // buildSafeBiome
-
-    public void buildGoalBiome() {
-
-    } // buildGoalBiome
-
     public int getWidth() {
         return width;
     } // getWidth
@@ -114,6 +102,10 @@ public class GameGrid {
     public int getPlayerYCoordinate() {
         return playerCoord[1] * tilePxFactor;
     } // getPlayerYCoordinate
+
+    public boolean contactMade() {
+        return getPlayerY() < 9 && getPlayerY() > 2;
+    } // contactMade
 
     public int getTilePxFactor() {
         return tilePxFactor;
