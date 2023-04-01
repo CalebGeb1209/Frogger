@@ -58,6 +58,9 @@ public class PlayerMovement {
     public void resetCoords() {
         setPlayerX((grid.getGrid()[0].length / 2) - 1);
         setPlayerY(grid.getGrid().length - 2);
+        spriteParams.topMargin = getPlayerYCoordinate();
+        spriteParams.leftMargin = getPlayerXCoordinate();
+        activeSprite.setLayoutParams(spriteParams);
     } // resetCoords
 
     @SuppressLint("ClickableViewAccessibility")

@@ -18,7 +18,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-//issue with lives
 
 public class GameScreen extends AppCompatActivity {
     private Bundle bundle;
@@ -58,42 +57,25 @@ public class GameScreen extends AppCompatActivity {
         playerMovement.setupNavigation();
         setupGrid();
 
+        new CountDownTimer(1000000000, 100) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                scoreManager.updateScore();
+            }
+
+            @Override
+            public void onFinish() {
+                // Code to execute when the timer is finished
+            }
+        }.start();
+
         new CountDownTimer(1000000000, 750) {
             @Override
             public void onTick(long millisUntilFinished) {
                 carManager.manageCars();
-                if (collisionManager.getCarCollision() && !gameOver) {
-                    if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) { // hard 1
-                        endGame();
-                    } else if (findViewById(R.id.imageView2).getVisibility() == View.VISIBLE) { // easy 3
-                        playerMovement.resetCoords();
-                        findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
-                        findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
-                        scoreManager.resetScore();
-                    } else if (findViewById(R.id.imageView5).getVisibility() == View.VISIBLE) { // medium 2
-                        playerMovement.resetCoords();
-                        findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-                        findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
-                        scoreManager.resetScore();
-                    }
-                }
-
-                if (collisionManager.waterContactMade() && !gameOver) {
-                    playerMovement.resetCoords();
-                    ConstraintLayout.LayoutParams spriteParams = (ConstraintLayout.LayoutParams) activeSprite.getLayoutParams();
-                    spriteParams.topMargin = playerMovement.getPlayerYCoordinate();
-                    spriteParams.leftMargin = playerMovement.getPlayerXCoordinate();
-                    if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) { // hard 1
-                        endGame();
-                    } else if (findViewById(R.id.imageView2).getVisibility() == View.VISIBLE) { // easy 3
-                        findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
-                        findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
-                        scoreManager.resetScore();
-                    } else if (findViewById(R.id.imageView5).getVisibility() == View.VISIBLE) { // medium 2
-                        findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-                        findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
-                        scoreManager.resetScore();
-                    }
+                if ((collisionManager.getCarCollision() || collisionManager.waterContactMade()) && !gameOver) {
+                    scoreManager.updateScore();
+                    handleCollision();
                 }
                 scoreManager.updateScore();
             }
@@ -158,4 +140,19 @@ public class GameScreen extends AppCompatActivity {
         Intent intent = new Intent(this, GameOverScreen.class);
         startActivity(intent);
     } // endGame
+
+    public void handleCollision() {
+        playerMovement.resetCoords();
+        if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) {
+            endGame();
+        } else if (findViewById(R.id.imageView2).getVisibility() == View.VISIBLE) {
+            findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
+            findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
+            scoreManager.resetScore();
+        } else if (findViewById(R.id.imageView5).getVisibility() == View.VISIBLE) {
+            findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+            findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
+            scoreManager.resetScore();
+        }
+    } // handleCollision
 } // GameScreen

@@ -1,5 +1,6 @@
 package com.example.game;
 
+import android.util.Log;
 import android.widget.TextView;
 
 public class ScoreManager {
@@ -14,7 +15,7 @@ public class ScoreManager {
         this.pointDetermination = pointDetermination;
         maxLevelReached = 15;
         points = 0;
-    }
+    } // ScoreManager
 
     public int getScore() {
         return points;
