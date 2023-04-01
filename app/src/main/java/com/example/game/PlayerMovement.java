@@ -29,10 +29,6 @@ public class PlayerMovement {
         return getPlayerY() < 9 && getPlayerY() > 2;
     } // contactMade
 
-    public int getTilePxFactor() {
-        return grid.getTilePxFactor();
-    } // getTilePxFactor
-
     public int getPlayerXCoordinate() {
         return playerCoord[0] * grid.getTilePxFactor();
     } // getPlayerXCoordinate
