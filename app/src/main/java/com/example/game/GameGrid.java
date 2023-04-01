@@ -13,7 +13,6 @@ public class GameGrid {
     private int width;
     private Tile[][] grid;
     private int tilePxFactor;
-    private int[] playerCoord;
 
     private Activity activity;
 
@@ -26,13 +25,15 @@ public class GameGrid {
         this.activity = activity;
         this.grid =
                 new Tile[this.height / this.tilePxFactor][this.width / this.tilePxFactor];
-        this.playerCoord = new int[]{(grid[0].length / 2) - 1, grid.length - 2};
     } // GameGrid
 
-    public void resetCoords() {
-        setPlayerX((grid[0].length / 2) - 1);
-        setPlayerY(grid.length - 2);
-    } // resetCoords
+    public Tile[][] getGrid() {
+        return grid;
+    } // getGrid
+
+    public int getTilePxFactor() {
+        return tilePxFactor;
+    } // getTilePxFactor
 
     public void populate(GridLayout layout) {
         for (int i = 0; i < 16; i++) {
@@ -79,45 +80,5 @@ public class GameGrid {
         return height;
     } // getHeight
 
-    public int getPlayerX() {
-        return playerCoord[0];
-    } // getPlayerX
 
-    public int getPlayerY() {
-        return playerCoord[1];
-    } // getPlayerY
-
-    public void setPlayerX(int x) {
-        playerCoord[0] = x;
-    } // setPlayerX
-
-    public void setPlayerY(int y) {
-        playerCoord[1] = y;
-    } // setPlayerY
-
-    public int getPlayerXCoordinate() {
-        return playerCoord[0] * tilePxFactor;
-    } // getPlayerXCoordinate
-
-    public int getPlayerYCoordinate() {
-        return playerCoord[1] * tilePxFactor;
-    } // getPlayerYCoordinate
-
-    public boolean contactMade() {
-        return getPlayerY() < 9 && getPlayerY() > 2;
-    } // contactMade
-
-    public int getTilePxFactor() {
-        return tilePxFactor;
-    } // getTilePxFactor
-
-    public boolean isAtXBoundary(String direction) {
-        return (direction.equals("L") && getPlayerX() == 0)
-                || (direction.equals("R") && getPlayerX() == grid[0].length - 2);
-    } // isAtXBoundary
-
-    public boolean isAtYBoundary(String direction) {
-        return (direction.equals("U") && getPlayerY() == 1)
-                || (direction.equals("D") && getPlayerY() == grid.length - 2);
-    } // isAtYBoundary
 } // GameGrid

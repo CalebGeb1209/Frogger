@@ -51,6 +51,7 @@ public class GameScreen extends AppCompatActivity {
     private Rect car4Rect = new Rect();
     private Rect car5Rect = new Rect();
     private Rect playerRect = new Rect();
+    private PlayerMovement pl_move;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,8 @@ public class GameScreen extends AppCompatActivity {
 
         grid = new GameGrid(this, 120);
         GridLayout gridLayout = findViewById(R.id.grid);
+
+        pl_move = new PlayerMovement(grid);
 
         setText();
         setDifficulty();
@@ -89,16 +92,16 @@ public class GameScreen extends AppCompatActivity {
     private void setupScore() {
         maxLevelReached = 15;
         points = 0;
-        grid.setPlayerY(15);
+        pl_move.setPlayerY(15);
     } // setupPoints
 
     private void updateScore() {
-        if (grid.getPlayerY() < maxLevelReached) {
-            if (grid.getPlayerY() + 1 < 2) {
+        if (pl_move.getPlayerY() < maxLevelReached) {
+            if (pl_move.getPlayerY() + 1 < 2) {
                 points++;
-            } else if (grid.getPlayerY() + 1 < 9) {
+            } else if (pl_move.getPlayerY() + 1 < 9) {
                 points += 2;
-            } else if (grid.getPlayerY() + 1 < 15 && grid.getPlayerY() + 1 > 9) {
+            } else if (pl_move.getPlayerY() + 1 < 15 && pl_move.getPlayerY() + 1 > 9) {
                 points += 3;
             } else {
                 points++;
@@ -111,8 +114,8 @@ public class GameScreen extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void setupNavigation() {
         spriteParams = (ConstraintLayout.LayoutParams) activeSprite.getLayoutParams();
-        spriteParams.leftMargin = grid.getPlayerXCoordinate();
-        spriteParams.topMargin = grid.getPlayerYCoordinate();
+        spriteParams.leftMargin = pl_move.getPlayerXCoordinate();
+        spriteParams.topMargin = pl_move.getPlayerYCoordinate();
 
         View game = findViewById(R.id.parent);
         game.setOnTouchListener((View.OnTouchListener) (view, event) -> {
@@ -120,22 +123,22 @@ public class GameScreen extends AppCompatActivity {
             int yCoordinate = (int) event.getY();
 
             if (xCoordinate < (grid.getWidth() / 3)) {
-                if (!grid.isAtXBoundary("L")) {
-                    spriteParams.leftMargin = grid.getPlayerXCoordinate() - grid.getTilePxFactor();
-                    grid.setPlayerX(grid.getPlayerX() - 1);
-                    Log.d("X", String.valueOf(grid.getPlayerX()));
+                if (!pl_move.isAtXBoundary("L")) {
+                    spriteParams.leftMargin = pl_move.getPlayerXCoordinate() - grid.getTilePxFactor();
+                    pl_move.setPlayerX(pl_move.getPlayerX() - 1);
+                    Log.d("X", String.valueOf(pl_move.getPlayerX()));
                 }
                 getCarCollision();
             } else if (xCoordinate < (grid.getWidth() / 3 * 2)) {
-                if (yCoordinate <= (grid.getHeight()) / 2 && !grid.isAtYBoundary("U")) {
-                    spriteParams.topMargin = grid.getPlayerYCoordinate() - grid.getTilePxFactor();
-                    grid.setPlayerY(grid.getPlayerY() - 1);
-                    Log.d("Y", String.valueOf(grid.getPlayerY()));
-                    if (grid.contactMade()) {
+                if (yCoordinate <= (grid.getHeight()) / 2 && !pl_move.isAtYBoundary("U")) {
+                    spriteParams.topMargin = pl_move.getPlayerYCoordinate() - grid.getTilePxFactor();
+                    pl_move.setPlayerY(pl_move.getPlayerY() - 1);
+                    Log.d("Y", String.valueOf(pl_move.getPlayerY()));
+                    if (pl_move.contactMade()) {
                         pointDetermination.setText("0 Points");
-                        grid.resetCoords();
-                        spriteParams.topMargin = grid.getPlayerYCoordinate();
-                        spriteParams.leftMargin = grid.getPlayerXCoordinate();
+                        pl_move.resetCoords();
+                        spriteParams.topMargin = pl_move.getPlayerYCoordinate();
+                        spriteParams.leftMargin = pl_move.getPlayerXCoordinate();
                         if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) { // hard 1
                             try {
                                 FileOutputStream file = openFileOutput("score.txt", Context.MODE_PRIVATE);
@@ -161,16 +164,16 @@ public class GameScreen extends AppCompatActivity {
                             maxLevelReached = 15;
                         }
                     }
-                } else if (yCoordinate > (grid.getHeight() / 2) && !grid.isAtYBoundary("D")) {
-                    spriteParams.topMargin = grid.getPlayerYCoordinate() + grid.getTilePxFactor();
-                     grid.setPlayerY(grid.getPlayerY() + 1);
+                } else if (yCoordinate > (grid.getHeight() / 2) && !pl_move.isAtYBoundary("D")) {
+                    spriteParams.topMargin = pl_move.getPlayerYCoordinate() + grid.getTilePxFactor();
+                     pl_move.setPlayerY(pl_move.getPlayerY() + 1);
                 }
                 getCarCollision();
             } else {
-                if (!grid.isAtXBoundary("R")) {
-                    spriteParams.leftMargin = grid.getPlayerXCoordinate() + grid.getTilePxFactor();
-                    grid.setPlayerX(grid.getPlayerX() + 1);
-                    Log.d("X", String.valueOf(grid.getPlayerX()));
+                if (!pl_move.isAtXBoundary("R")) {
+                    spriteParams.leftMargin = pl_move.getPlayerXCoordinate() + grid.getTilePxFactor();
+                    pl_move.setPlayerX(pl_move.getPlayerX() + 1);
+                    Log.d("X", String.valueOf(pl_move.getPlayerX()));
                 }
                 getCarCollision();
             }
@@ -307,9 +310,9 @@ public class GameScreen extends AppCompatActivity {
 
         if (playerRect.intersect(car1Rect) || playerRect.intersect(car2Rect) || playerRect.intersect(car3Rect) || playerRect.intersect(car4Rect) || playerRect.intersect(car5Rect)) {
             pointDetermination.setText("0 Points");
-            grid.resetCoords();
-            spriteParams.topMargin = grid.getPlayerYCoordinate();
-            spriteParams.leftMargin = grid.getPlayerXCoordinate();
+            pl_move.resetCoords();
+            spriteParams.topMargin = pl_move.getPlayerYCoordinate();
+            spriteParams.leftMargin = pl_move.getPlayerXCoordinate();
             if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) { // hard 1
                 try {
                     FileOutputStream file = openFileOutput("score.txt", Context.MODE_PRIVATE);
