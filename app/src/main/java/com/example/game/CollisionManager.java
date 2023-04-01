@@ -3,8 +3,6 @@ package com.example.game;
 import android.graphics.Rect;
 import android.view.View;
 import android.widget.ImageButton;
-
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class CollisionManager {
@@ -14,6 +12,7 @@ public class CollisionManager {
     private Rect car4Rect;
     private Rect car5Rect;
     private Rect playerRect;
+    private Rect carRects[];
     private ImageButton activeSprite;
     private CarManager carManager;
     private ScoreManager scoreManager;
@@ -30,6 +29,7 @@ public class CollisionManager {
         car3Rect = new Rect();
         car4Rect = new Rect();
         car5Rect = new Rect();
+        carRects = new Rect[]{car1Rect, car2Rect, car3Rect, car4Rect, car5Rect};
         playerRect = new Rect();
     } // CollisionManager
 
@@ -43,18 +43,16 @@ public class CollisionManager {
 
     public boolean getCarCollision() {
         activeSprite.getGlobalVisibleRect(playerRect);
-        carManager.getCar1().getGlobalVisibleRect(car1Rect);
-        carManager.getCar2().getGlobalVisibleRect(car2Rect);
-        carManager.getCar3().getGlobalVisibleRect(car3Rect);
-        carManager.getCar4().getGlobalVisibleRect(car4Rect);
-        carManager.getCar5().getGlobalVisibleRect(car5Rect);
+
+        for (int i = 0; i < carRects.length; i++) {
+            carManager.getCar(i + 1).getGlobalVisibleRect(carRects[i]);
+        }
 
         shrinkBox(playerRect);
-        shrinkBox(car1Rect);
-        shrinkBox(car2Rect);
-        shrinkBox(car3Rect);
-        shrinkBox(car4Rect);
-        shrinkBox(car5Rect);
+
+        for (int i = 0; i < carRects.length; i++) {
+            shrinkBox(carRects[i]);
+        }
 
         if (playerRect.intersect(car1Rect) || playerRect.intersect(car2Rect) || playerRect.intersect(car3Rect) || playerRect.intersect(car4Rect) || playerRect.intersect(car5Rect)) {
             resetSprite();
@@ -64,10 +62,13 @@ public class CollisionManager {
     } // getCarCollision
 
     public void resetSprite() {
-        scoreManager.resetScore();
         ConstraintLayout.LayoutParams spriteParams = (ConstraintLayout.LayoutParams) activeSprite.getLayoutParams();
         spriteParams.topMargin = playerMovement.getPlayerYCoordinate();
         spriteParams.leftMargin = playerMovement.getPlayerXCoordinate();
         activeSprite.setLayoutParams(spriteParams);
-    }
+    } // resetSprite
+
+    public boolean waterContactMade() {
+        return playerMovement.getPlayerY() < 9 && playerMovement.getPlayerY() > 2;
+    } // contactMade
 }

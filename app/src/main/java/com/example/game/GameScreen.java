@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+//issue with lives
 
 public class GameScreen extends AppCompatActivity {
     private Bundle bundle;
@@ -26,8 +27,7 @@ public class GameScreen extends AppCompatActivity {
     private TextView pointDetermination;
     private ImageView activeLives;
     private ImageButton activeSprite;
-    private ConstraintLayout.LayoutParams spriteParams;
-
+    private boolean gameOver;
     private GameGrid grid;
     private GridLayout gridLayout;
     private PlayerMovement playerMovement;
@@ -35,9 +35,9 @@ public class GameScreen extends AppCompatActivity {
     private CarManager carManager;
     private CollisionManager collisionManager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        gameOver = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
         levelDetermination = (TextView) findViewById(R.id.difficulty);
@@ -49,32 +49,40 @@ public class GameScreen extends AppCompatActivity {
         gridLayout = findViewById(R.id.grid);
 
         setSprite();
-
-
-
-        playerMovement = new PlayerMovement(grid);
+        setText();
+        setDifficulty();
+        playerMovement = new PlayerMovement(grid, findViewById(R.id.parent), activeSprite);
         scoreManager = new ScoreManager(playerMovement, pointDetermination);
         carManager = new CarManager(grid, findViewById(R.id.car1), findViewById(R.id.car2), findViewById(R.id.car3), findViewById(R.id.car4), findViewById(R.id.car5));
         collisionManager = new CollisionManager(carManager, activeSprite, scoreManager, playerMovement);
-
+        playerMovement.setupNavigation();
         setupGrid();
 
-
-
-
-
-
-        setText();
-        setDifficulty();
-
-        setupNavigation();
-
-
-        new CountDownTimer(1000000, 1000) {
+        new CountDownTimer(1000000000, 750) {
             @Override
             public void onTick(long millisUntilFinished) {
                 carManager.manageCars();
-                if (collisionManager.getCarCollision()) {
+                if (collisionManager.getCarCollision() && !gameOver) {
+                    if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) { // hard 1
+                        endGame();
+                    } else if (findViewById(R.id.imageView2).getVisibility() == View.VISIBLE) { // easy 3
+                        playerMovement.resetCoords();
+                        findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
+                        findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
+                        scoreManager.resetScore();
+                    } else if (findViewById(R.id.imageView5).getVisibility() == View.VISIBLE) { // medium 2
+                        playerMovement.resetCoords();
+                        findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
+                        findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
+                        scoreManager.resetScore();
+                    }
+                }
+
+                if (collisionManager.waterContactMade() && !gameOver) {
+                    playerMovement.resetCoords();
+                    ConstraintLayout.LayoutParams spriteParams = (ConstraintLayout.LayoutParams) activeSprite.getLayoutParams();
+                    spriteParams.topMargin = playerMovement.getPlayerYCoordinate();
+                    spriteParams.leftMargin = playerMovement.getPlayerXCoordinate();
                     if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) { // hard 1
                         endGame();
                     } else if (findViewById(R.id.imageView2).getVisibility() == View.VISIBLE) { // easy 3
@@ -86,7 +94,8 @@ public class GameScreen extends AppCompatActivity {
                         findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
                         scoreManager.resetScore();
                     }
-                };
+                }
+                scoreManager.updateScore();
             }
 
             @Override
@@ -94,70 +103,12 @@ public class GameScreen extends AppCompatActivity {
                 // Code to execute when the timer is finished
             }
         }.start();
-
     } // onCreate
 
     public void setupGrid() {
         grid.populate(gridLayout);
         carManager.setUpCars();
     }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private void setupNavigation() {
-        spriteParams = (ConstraintLayout.LayoutParams) activeSprite.getLayoutParams();
-        spriteParams.leftMargin = playerMovement.getPlayerXCoordinate();
-        spriteParams.topMargin = playerMovement.getPlayerYCoordinate();
-
-        View game = findViewById(R.id.parent);
-        game.setOnTouchListener((View.OnTouchListener) (view, event) -> {
-            int xCoordinate = (int) event.getX();
-            int yCoordinate = (int) event.getY();
-
-            if (xCoordinate < (grid.getWidth() / 3)) {
-                if (!playerMovement.isAtXBoundary("L")) {
-                    spriteParams.leftMargin = playerMovement.getPlayerXCoordinate() - grid.getTilePxFactor();
-                    playerMovement.setPlayerX(playerMovement.getPlayerX() - 1);
-                }
-                collisionManager.getCarCollision();
-            } else if (xCoordinate < (grid.getWidth() / 3 * 2)) {
-                if (yCoordinate <= (grid.getHeight()) / 2 && !playerMovement.isAtYBoundary("U")) {
-                    spriteParams.topMargin = playerMovement.getPlayerYCoordinate() - grid.getTilePxFactor();
-                    playerMovement.setPlayerY(playerMovement.getPlayerY() - 1);
-                    if (playerMovement.contactMade()) {
-                        pointDetermination.setText("0 Points");
-                        playerMovement.resetCoords();
-                        spriteParams.topMargin = playerMovement.getPlayerYCoordinate();
-                        spriteParams.leftMargin = playerMovement.getPlayerXCoordinate();
-                        if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) { // hard 1
-                            endGame();
-                        } else if (findViewById(R.id.imageView2).getVisibility() == View.VISIBLE) { // easy 3
-                            findViewById(R.id.imageView5).setVisibility(View.VISIBLE);
-                            findViewById(R.id.imageView2).setVisibility(View.INVISIBLE);
-                            scoreManager.resetScore();
-                        } else if (findViewById(R.id.imageView5).getVisibility() == View.VISIBLE) { // medium 2
-                            findViewById(R.id.imageView6).setVisibility(View.VISIBLE);
-                            findViewById(R.id.imageView5).setVisibility(View.INVISIBLE);
-                            scoreManager.resetScore();
-                        }
-                    }
-                } else if (yCoordinate > (grid.getHeight() / 2) && !playerMovement.isAtYBoundary("D")) {
-                    spriteParams.topMargin = playerMovement.getPlayerYCoordinate() + grid.getTilePxFactor();
-                     playerMovement.setPlayerY(playerMovement.getPlayerY() + 1);
-                }
-                collisionManager.getCarCollision();
-            } else {
-                if (!playerMovement.isAtXBoundary("R")) {
-                    spriteParams.leftMargin = playerMovement.getPlayerXCoordinate() + grid.getTilePxFactor();
-                    playerMovement.setPlayerX(playerMovement.getPlayerX() + 1);
-                }
-                collisionManager.getCarCollision();
-            }
-            scoreManager.updateScore();
-
-            activeSprite.setLayoutParams(spriteParams);
-            return false;
-        });
-    } // setupNavigation
 
     private void setText() {
         String name = bundle.getString("name");
@@ -203,6 +154,7 @@ public class GameScreen extends AppCompatActivity {
             Log.d("Exception", "Exception Occurred");
         }
 
+        gameOver = true;
         Intent intent = new Intent(this, GameOverScreen.class);
         startActivity(intent);
     } // endGame

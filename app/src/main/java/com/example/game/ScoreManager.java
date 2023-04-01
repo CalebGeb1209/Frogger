@@ -27,7 +27,6 @@ public class ScoreManager {
     public void resetScore() {
         maxLevelReached = 15;
         points = 0;
-        playerMovement.resetCoords();
         pointDetermination.setText("0 Pts");
     } // setupPoints
 
