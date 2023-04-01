@@ -2,10 +2,8 @@ package com.example.game;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -14,8 +12,6 @@ import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 

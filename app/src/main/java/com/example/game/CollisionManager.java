@@ -1,7 +1,6 @@
 package com.example.game;
 
 import android.graphics.Rect;
-import android.view.View;
 import android.widget.ImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -17,7 +16,6 @@ public class CollisionManager {
     private CarManager carManager;
     private ScoreManager scoreManager;
     private PlayerMovement playerMovement;
-
 
     public CollisionManager(CarManager carManager, ImageButton activeSprite, ScoreManager scoreManager, PlayerMovement playerMovement) {
         this.carManager = carManager;
@@ -49,7 +47,6 @@ public class CollisionManager {
         }
 
         shrinkBox(playerRect);
-
         for (int i = 0; i < carRects.length; i++) {
             shrinkBox(carRects[i]);
         }

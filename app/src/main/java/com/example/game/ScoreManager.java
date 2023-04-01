@@ -1,6 +1,5 @@
 package com.example.game;
 
-import android.util.Log;
 import android.widget.TextView;
 
 public class ScoreManager {
