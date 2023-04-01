@@ -2,8 +2,8 @@ package com.example.game;
 
 public class RoadTile extends Tile {
 
-    public RoadTile(String name) {
-        super(name, false);
+    public RoadTile() {
+        super("Road", false);
     } // RoadTile
 
 } // RoadTile
