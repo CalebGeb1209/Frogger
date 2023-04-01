@@ -2,10 +2,8 @@ package com.example.game;
 
 public class SafeTile extends Tile {
 
-    // includes a list of subobjects in array form
-
-    public SafeTile() {
-
+    public SafeTile(String name) {
+        super(name, false);
     } // SafeTile
 
 } // SafeTile
