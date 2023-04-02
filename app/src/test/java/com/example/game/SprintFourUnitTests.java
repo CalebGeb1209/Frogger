@@ -7,59 +7,44 @@ import org.junit.Test;
 public class SprintFourUnitTests {
 
     @Test
-    public void decreaseLivesFromThreeLives() {
-        int playerXCoordinate = 5;
-        int playerYCoordinate = 6;
-        assertEquals(2, UnitTestingFunctions.DecreaseLives(3, playerXCoordinate, playerYCoordinate));
+    public void decreaseLivesFromWaterTileThreeLives() {
 
-        playerXCoordinate = 3;
-        playerYCoordinate = 6;
-        assertEquals(3, UnitTestingFunctions.DecreaseLives(3, playerXCoordinate, playerYCoordinate));
+        assertEquals(2, UnitTestingFunctions.DecreaseLivesWithWaterTile(3, 5, 6));
 
-        playerXCoordinate = 6;
-        playerYCoordinate = 6;
-        assertEquals(2, UnitTestingFunctions.DecreaseLives(3, playerXCoordinate, playerYCoordinate));
 
-        playerXCoordinate = 7;
-        playerYCoordinate = 6;
-        assertEquals(3, UnitTestingFunctions.DecreaseLives(3, playerXCoordinate, playerYCoordinate));
+        assertEquals(3, UnitTestingFunctions.DecreaseLivesWithWaterTile(3, 3, 6));
+
+
+        assertEquals(2, UnitTestingFunctions.DecreaseLivesWithWaterTile(3, 6, 6));
+
+        assertEquals(3, UnitTestingFunctions.DecreaseLivesWithWaterTile(3, 7, 6));
     }
 
     @Test
-    public void decreaseLivesFromTwoLives() {
-        int playerXCoordinate = 5;
-        int playerYCoordinate = 6;
-        assertEquals(1, UnitTestingFunctions.DecreaseLives(2, playerXCoordinate, playerYCoordinate));
+    public void decreaseLivesFromWaterTileTwoLives() {
 
-        playerXCoordinate = 3;
-        playerYCoordinate = 6;
-        assertEquals(2, UnitTestingFunctions.DecreaseLives(2, playerXCoordinate, playerYCoordinate));
+        assertEquals(1, UnitTestingFunctions.DecreaseLivesWithWaterTile(2, 5, 6));
 
-        playerXCoordinate = 6;
-        playerYCoordinate = 6;
-        assertEquals(1, UnitTestingFunctions.DecreaseLives(2, playerXCoordinate, playerYCoordinate));
 
-        playerXCoordinate = 7;
-        playerYCoordinate = 6;
-        assertEquals(2, UnitTestingFunctions.DecreaseLives(2, playerXCoordinate, playerYCoordinate));
+        assertEquals(2, UnitTestingFunctions.DecreaseLivesWithWaterTile(2, 3, 6));
+
+        assertEquals(1, UnitTestingFunctions.DecreaseLivesWithWaterTile(2, 6, 6));
+
+        assertEquals(2, UnitTestingFunctions.DecreaseLivesWithWaterTile(2, 7, 6));
     }
     @Test
-    public void decreaseLivesFromOneLife() {
-        int playerXCoordinate = 5;
-        int playerYCoordinate = 6;
-        assertEquals(0, UnitTestingFunctions.DecreaseLives(1, playerXCoordinate, playerYCoordinate));
+    public void decreaseLivesFromWaterTileOneLife() {
 
-        playerXCoordinate = 3;
-        playerYCoordinate = 6;
-        assertEquals(1, UnitTestingFunctions.DecreaseLives(1, playerXCoordinate, playerYCoordinate));
+        assertEquals(0, UnitTestingFunctions.DecreaseLivesWithWaterTile(1, 5, 6));
 
-        playerXCoordinate = 6;
-        playerYCoordinate = 6;
-        assertEquals(0, UnitTestingFunctions.DecreaseLives(1, playerXCoordinate, playerYCoordinate));
 
-        playerXCoordinate = 7;
-        playerYCoordinate = 6;
-        assertEquals(1, UnitTestingFunctions.DecreaseLives(1, playerXCoordinate, playerYCoordinate));
+        assertEquals(1, UnitTestingFunctions.DecreaseLivesWithWaterTile(1, 3, 6));
+
+
+        assertEquals(0, UnitTestingFunctions.DecreaseLivesWithWaterTile(1, 6, 6));
+
+
+        assertEquals(1, UnitTestingFunctions.DecreaseLivesWithWaterTile(1, 7, 6));
     }
 
     @Test
@@ -73,5 +58,49 @@ public class SprintFourUnitTests {
 
         assertEquals(3, UnitTestingFunctions.changeScore(3, 7, 6));
     }
+
+    @Test
+    public void gameOverTest() {
+        assertEquals(true, UnitTestingFunctions.goToGameOverScreen( 1, 5, 6));
+        assertEquals(false, UnitTestingFunctions.goToGameOverScreen( 2, 5, 6));
+        assertEquals(false, UnitTestingFunctions.goToGameOverScreen(3, 5, 6));
+    }
+    @Test
+    public void decreaseLivesFromCollisionThreeLives() {
+
+        assertEquals(2, UnitTestingFunctions.decreaseLivesWithCollision(3, 5, 6, 5, 6));
+
+
+        assertEquals(3, UnitTestingFunctions.decreaseLivesWithCollision(3, 5, 6, 7 ,8));
+
+        assertEquals(2, UnitTestingFunctions.decreaseLivesWithCollision(3, 7, 8, 7, 8));
+
+        assertEquals(3, UnitTestingFunctions.decreaseLivesWithCollision(3, 5, 6, 9, 10));
+    }
+    @Test
+    public void decreaseLivesFromCollisionTwoLives() {
+        assertEquals(1, UnitTestingFunctions.decreaseLivesWithCollision(2, 5, 6, 5, 6));
+
+
+        assertEquals(2, UnitTestingFunctions.decreaseLivesWithCollision(2, 5, 6, 7 ,8));
+
+        assertEquals(1, UnitTestingFunctions.decreaseLivesWithCollision(2, 7, 8, 7, 8));
+
+        assertEquals(2, UnitTestingFunctions.decreaseLivesWithCollision(2, 5, 6, 9, 10));
+    }
+
+    @Test
+    public void decreaseLivesFromCollisionOneLife() {
+
+        assertEquals(0, UnitTestingFunctions.decreaseLivesWithCollision(1, 5, 6, 5, 6));
+
+
+        assertEquals(1, UnitTestingFunctions.decreaseLivesWithCollision(1, 5, 6, 7 ,8));
+
+        assertEquals(0, UnitTestingFunctions.decreaseLivesWithCollision(1, 7, 8, 7, 8));
+
+        assertEquals(1, UnitTestingFunctions.decreaseLivesWithCollision(1, 5, 6, 9, 10));
+    }
+
 
 }
