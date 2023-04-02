@@ -11,13 +11,14 @@ public class CollisionManager {
     private Rect car4Rect;
     private Rect car5Rect;
     private Rect playerRect;
-    private Rect carRects[];
+    private Rect[] carRects;
     private ImageButton activeSprite;
     private CarManager carManager;
     private ScoreManager scoreManager;
     private PlayerMovement playerMovement;
 
-    public CollisionManager(CarManager carManager, ImageButton activeSprite, ScoreManager scoreManager, PlayerMovement playerMovement) {
+    public CollisionManager(CarManager carManager, ImageButton activeSprite,
+                            ScoreManager scoreManager, PlayerMovement playerMovement) {
         this.carManager = carManager;
         this.scoreManager = scoreManager;
         this.playerMovement = playerMovement;
@@ -34,7 +35,7 @@ public class CollisionManager {
     public void shrinkBox(Rect rect) {
         int currHeight = rect.bottom - rect.top;
         int newHeight = (int) (currHeight * 0.2);
-        int displacement = (int)((currHeight - newHeight) / 3);
+        int displacement = (int) ((currHeight - newHeight) / 3);
         rect.top += displacement;
         rect.bottom = rect.top + newHeight;
     } // shrinkBox
@@ -51,7 +52,9 @@ public class CollisionManager {
             shrinkBox(carRects[i]);
         }
 
-        if (playerRect.intersect(car1Rect) || playerRect.intersect(car2Rect) || playerRect.intersect(car3Rect) || playerRect.intersect(car4Rect) || playerRect.intersect(car5Rect)) {
+        if (playerRect.intersect(car1Rect) || playerRect.intersect(car2Rect)
+                || playerRect.intersect(car3Rect) || playerRect.intersect(car4Rect)
+                    || playerRect.intersect(car5Rect)) {
             resetSprite();
             return true;
         }
@@ -59,7 +62,8 @@ public class CollisionManager {
     } // getCarCollision
 
     public void resetSprite() {
-        ConstraintLayout.LayoutParams spriteParams = (ConstraintLayout.LayoutParams) activeSprite.getLayoutParams();
+        ConstraintLayout.LayoutParams spriteParams
+                = (ConstraintLayout.LayoutParams) activeSprite.getLayoutParams();
         spriteParams.topMargin = playerMovement.getPlayerYCoordinate();
         spriteParams.leftMargin = playerMovement.getPlayerXCoordinate();
         activeSprite.setLayoutParams(spriteParams);

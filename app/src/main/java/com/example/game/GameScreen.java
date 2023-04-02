@@ -48,8 +48,10 @@ public class GameScreen extends AppCompatActivity {
         setDifficulty();
         playerMovement = new PlayerMovement(grid, findViewById(R.id.parent), activeSprite);
         scoreManager = new ScoreManager(playerMovement, pointDetermination);
-        carManager = new CarManager(grid, findViewById(R.id.car1), findViewById(R.id.car2), findViewById(R.id.car3), findViewById(R.id.car4), findViewById(R.id.car5));
-        collisionManager = new CollisionManager(carManager, activeSprite, scoreManager, playerMovement);
+        carManager = new CarManager(grid, findViewById(R.id.car1), findViewById(R.id.car2),
+                findViewById(R.id.car3), findViewById(R.id.car4), findViewById(R.id.car5));
+        collisionManager = new CollisionManager(carManager, activeSprite, scoreManager,
+                playerMovement);
         playerMovement.setupNavigation();
         setupGrid();
 
@@ -69,7 +71,8 @@ public class GameScreen extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 carManager.manageCars();
-                if ((collisionManager.getCarCollision() || collisionManager.waterContactMade()) && !gameOver) {
+                if ((collisionManager.getCarCollision() || collisionManager.waterContactMade())
+                        && !gameOver) {
                     scoreManager.updateScore();
                     handleCollision();
                 }
