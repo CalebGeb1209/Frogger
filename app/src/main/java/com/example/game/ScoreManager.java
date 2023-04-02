@@ -7,7 +7,7 @@ public class ScoreManager {
     private int maxLevelReached;
     private int points;
     private PlayerMovement playerMovement;
-    TextView pointDetermination;
+    private TextView pointDetermination;
 
     public ScoreManager(PlayerMovement playerMovement, TextView pointDetermination) {
         this.playerMovement = playerMovement;
@@ -36,7 +36,8 @@ public class ScoreManager {
                 points++;
             } else if (playerMovement.getPlayerY() + 1 < 9) {
                 points += 2;
-            } else if (playerMovement.getPlayerY() + 1 < 15 && playerMovement.getPlayerY() + 1 > 9) {
+            } else if (playerMovement.getPlayerY() + 1 < 15
+                    && playerMovement.getPlayerY() + 1 > 9) {
                 points += 3;
             } else {
                 points++;

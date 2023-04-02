@@ -11,11 +11,12 @@ public class CarManager {
     private ImageButton car3;
     private ImageButton car4;
     private ImageButton car5;
-    private ImageButton cars[];
-    private int displacements[];
+    private ImageButton[] cars;
+    private int[] displacements;
     private GameGrid grid;
 
-    public CarManager(GameGrid grid, ImageButton car1, ImageButton car2, ImageButton car3, ImageButton car4, ImageButton car5) {
+    public CarManager(GameGrid grid, ImageButton car1, ImageButton car2, ImageButton car3,
+                      ImageButton car4, ImageButton car5) {
         this.grid = grid;
         this.car1 = car1;
         this.car2 = car2;
@@ -33,7 +34,8 @@ public class CarManager {
     public void setUpCars() {
         for (int i = 0; i < cars.length; i++) {
             cars[i].setVisibility(View.VISIBLE);
-            ConstraintLayout.LayoutParams carParams = (ConstraintLayout.LayoutParams) cars[i].getLayoutParams();
+            ConstraintLayout.LayoutParams carParams
+                    = (ConstraintLayout.LayoutParams) cars[i].getLayoutParams();
             carParams.topMargin = grid.getTilePxFactor() * (14 - i);
             cars[i].setLayoutParams(carParams);
         }
@@ -41,7 +43,8 @@ public class CarManager {
 
     public void manageCars() {
         for (int i = 0; i < cars.length; i++) {
-            ConstraintLayout.LayoutParams carParams = (ConstraintLayout.LayoutParams) cars[i].getLayoutParams();
+            ConstraintLayout.LayoutParams carParams
+                    = (ConstraintLayout.LayoutParams) cars[i].getLayoutParams();
             if (carParams.leftMargin <= 0) {
                 carParams.leftMargin = 1000;
             } else {
