@@ -2,8 +2,8 @@ package com.example.game;
 
 public class RiverTile extends Tile {
 
-    public RiverTile(String name) {
-        super(name, true);
+    public RiverTile() {
+        super("River", true);
     } // RiverTile
 
 } // RiverTile
