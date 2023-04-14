@@ -8,7 +8,7 @@
     tools:context=".ConfigScreen">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/exit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Medium"
@@ -33,7 +33,7 @@
         app:layout_constraintVertical_bias="0.809" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/restart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Easy"
@@ -95,7 +95,7 @@
         app:layout_constraintVertical_bias="0.196" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/congrats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#A9FFFFFF"

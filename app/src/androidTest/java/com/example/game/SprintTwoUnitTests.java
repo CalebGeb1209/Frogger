@@ -1,26 +1,18 @@
 package com.example.game;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.doubleClick;
-import static androidx.test.espresso.action.ViewActions.longClick;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isClickable;
-import static androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isNotClickable;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import android.content.Context;
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.ViewAssertion;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -148,7 +140,7 @@ public class SprintTwoUnitTests {
     @Test
     // Caleb
     public void isCharacterTextDisplayed() {
-        onView(withId(R.id.textView)).check(matches(isDisplayed()));
+        onView(withId(R.id.congrats)).check(matches(isDisplayed()));
     }
     /**
      * Test to check if user can advance to next screen with invalid white space name
@@ -175,7 +167,7 @@ public class SprintTwoUnitTests {
                 .perform(typeText("User Name"));
         Espresso.closeSoftKeyboard();
 
-        onView(withId(R.id.button3)).perform(click());
+        onView(withId(R.id.restart)).perform(click());
 
         onView(withId(R.id.imageButton10)).perform(click());
 
@@ -193,7 +185,7 @@ public class SprintTwoUnitTests {
                 .perform(typeText("User Name"));
         Espresso.closeSoftKeyboard();
 
-        onView(withId(R.id.button2)).perform(click());
+        onView(withId(R.id.exit)).perform(click());
 
         onView(withId(R.id.imageButton10)).perform(click());
 
@@ -227,8 +219,8 @@ public class SprintTwoUnitTests {
     public void startGameTest() {
         onView(withId(R.id.editTextTextPersonName)).perform(typeText("User Name"));
         onView(withId(R.id.imageButton9)).perform(click());
-        onView(withId(R.id.button2)).check(matches(isClickable()));
-        onView(withId(R.id.textView)).check(matches(isDisplayed()));
+        onView(withId(R.id.exit)).check(matches(isClickable()));
+        onView(withId(R.id.congrats)).check(matches(isDisplayed()));
     }
 
 

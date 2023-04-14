@@ -28,6 +28,7 @@ public class GameScreen extends AppCompatActivity {
     private PlayerMovement playerMovement;
     private ScoreManager scoreManager;
     private CarManager carManager;
+    private LogManager logManager;
     private CollisionManager collisionManager;
 
     @Override
@@ -47,10 +48,13 @@ public class GameScreen extends AppCompatActivity {
         setText();
         setDifficulty();
         playerMovement = new PlayerMovement(grid, findViewById(R.id.parent), activeSprite);
-        scoreManager = new ScoreManager(playerMovement, pointDetermination);
+        scoreManager = new ScoreManager(playerMovement, pointDetermination, this);
         carManager = new CarManager(grid, findViewById(R.id.car1), findViewById(R.id.car2),
                 findViewById(R.id.car3), findViewById(R.id.car4), findViewById(R.id.car5));
-        collisionManager = new CollisionManager(carManager, activeSprite, scoreManager,
+        logManager = new LogManager(grid, this, activeSprite, findViewById(R.id.log1), findViewById(R.id.log2),
+                findViewById(R.id.log3), findViewById(R.id.log4), findViewById(R.id.log5),
+                findViewById(R.id.log6), findViewById(R.id.log7));
+        collisionManager = new CollisionManager(carManager, logManager, activeSprite, scoreManager,
                 playerMovement);
         playerMovement.setupNavigation();
         setupGrid();
@@ -71,7 +75,9 @@ public class GameScreen extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 carManager.manageCars();
-                if ((collisionManager.getCarCollision() || collisionManager.waterContactMade())
+                logManager.manageLogs();
+                if ((collisionManager.getCarCollision() ||
+                        (collisionManager.waterContactMade() && !collisionManager.onLogs()))
                         && !gameOver) {
                     scoreManager.updateScore();
                     handleCollision();
@@ -89,6 +95,7 @@ public class GameScreen extends AppCompatActivity {
     public void setupGrid() {
         grid.populate(gridLayout);
         carManager.setUpCars();
+        logManager.setUpLogs();
     }
 
     private void setText() {
@@ -140,6 +147,22 @@ public class GameScreen extends AppCompatActivity {
         startActivity(intent);
     } // endGame
 
+    public void winGame() {
+        try {
+            FileOutputStream file = openFileOutput("score.txt", Context.MODE_PRIVATE);
+            PrintWriter writer = new PrintWriter(file);
+            writer.println(scoreManager.getScore());
+            writer.close();
+            file.close();
+        } catch (Exception e) {
+            Log.d("Exception", "Exception Occurred");
+        }
+
+        gameOver = true;
+        Intent intent = new Intent(this, GameWinScreen.class);
+        startActivity(intent);
+    } // winGame
+
     public void handleCollision() {
         playerMovement.resetCoords();
         if (findViewById(R.id.imageView6).getVisibility() == View.VISIBLE) {
@@ -154,4 +177,8 @@ public class GameScreen extends AppCompatActivity {
             scoreManager.resetScore();
         }
     } // handleCollision
+
+    public CollisionManager getCollisionManager() {
+        return collisionManager;
+    }
 } // GameScreen

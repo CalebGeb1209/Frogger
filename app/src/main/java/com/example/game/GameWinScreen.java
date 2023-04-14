@@ -1,27 +1,29 @@
 package com.example.game;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-public class GameOverScreen extends AppCompatActivity {
-    private Button button;
+public class GameWinScreen extends AppCompatActivity {
+    private Button restart;
     private Button exit;
     private TextView score;
+    private TextView congrats;
     private String points = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gameover);
+        setContentView(R.layout.gamewin);
 
         try {
             FileInputStream file = openFileInput("score.txt");
@@ -39,8 +41,11 @@ public class GameOverScreen extends AppCompatActivity {
         score = findViewById(R.id.score);
         score.setText("Score: " + points);
 
-        button = findViewById(R.id.restart);
-        button.setOnClickListener(new View.OnClickListener() {
+        congrats = findViewById(R.id.congrats);
+        congrats.setText("You won!");
+
+        restart = findViewById(R.id.restart);
+        restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openConfigScreen();

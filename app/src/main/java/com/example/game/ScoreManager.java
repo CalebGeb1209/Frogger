@@ -1,6 +1,12 @@
 package com.example.game;
 
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.widget.TextView;
+
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 
 public class ScoreManager {
 
@@ -8,12 +14,14 @@ public class ScoreManager {
     private int points;
     private PlayerMovement playerMovement;
     private TextView pointDetermination;
+    private GameScreen screen;
 
-    public ScoreManager(PlayerMovement playerMovement, TextView pointDetermination) {
+    public ScoreManager(PlayerMovement playerMovement, TextView pointDetermination, GameScreen screen) {
         this.playerMovement = playerMovement;
         this.pointDetermination = pointDetermination;
         maxLevelReached = 15;
         points = 0;
+        this.screen = screen;
     } // ScoreManager
 
     public int getScore() {
@@ -32,13 +40,17 @@ public class ScoreManager {
 
     public void updateScore() {
         if (playerMovement.getPlayerY() < maxLevelReached) {
+            Log.d("Player Y", String.valueOf(playerMovement.getPlayerY()));
             if (playerMovement.getPlayerY() + 1 < 2) {
                 points++;
-            } else if (playerMovement.getPlayerY() + 1 < 9) {
+            } else if (playerMovement.getPlayerY() + 1 < 9 && playerMovement.getPlayerY() != 1) {
                 points += 2;
             } else if (playerMovement.getPlayerY() + 1 < 15
                     && playerMovement.getPlayerY() + 1 > 9) {
                 points += 3;
+            } else if (playerMovement.getPlayerY() == 1) {
+                points += 10;
+                screen.winGame();
             } else {
                 points++;
             }

@@ -83,6 +83,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:background="@null"
+        android:elevation="3dp"
         android:focusable="true"
         android:scaleType="fitCenter"
         android:visibility="invisible"
@@ -92,14 +93,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/frogspriteblue__1_"
-        android:elevation="2dp"/>
+        app:srcCompat="@drawable/frogspriteblue__1_" />
 
     <ImageButton
         android:id="@+id/imageButton9"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:background="@null"
+        android:elevation="3dp"
         android:scaleType="fitCenter"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -108,14 +109,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/frogspriteredresized"
-        android:elevation="2dp"/>
+        app:srcCompat="@drawable/frogspriteredresized" />
 
     <ImageButton
         android:id="@+id/imageButton10"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:background="@null"
+        android:elevation="3dp"
         android:scaleType="fitCenter"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -124,8 +125,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:srcCompat="@drawable/frogspritegreenresized"
-        android:elevation="2dp"/>
+        app:srcCompat="@drawable/frogspritegreenresized" />
 
     <ImageButton
         android:id="@+id/car1"
@@ -206,6 +206,111 @@
         app:layout_constraintVertical_bias="0"
         app:srcCompat="@mipmap/frogcar1reversed_foreground"
         android:elevation="2dp"/>
+
+    <ImageButton
+        android:id="@+id/log7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:srcCompat="@mipmap/safetileart"
+        tools:layout_editor_absoluteY="18dp" />
+
+    <ImageButton
+        android:id="@+id/log4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:srcCompat="@mipmap/safetileart"
+        tools:layout_editor_absoluteY="18dp" />
+
+    <ImageButton
+        android:id="@+id/log5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:srcCompat="@mipmap/safetileart"
+        tools:layout_editor_absoluteY="18dp" />
+
+    <ImageButton
+        android:id="@+id/log1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:srcCompat="@mipmap/safetileart"
+        tools:layout_editor_absoluteY="18dp" />
+
+    <ImageButton
+        android:id="@+id/log6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:srcCompat="@mipmap/safetileart"
+        tools:layout_editor_absoluteY="18dp" />
+
+    <ImageButton
+        android:id="@+id/log3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:srcCompat="@mipmap/safetileart"
+        tools:layout_editor_absoluteY="18dp" />
+
+    <ImageButton
+        android:id="@+id/log2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="2dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:srcCompat="@mipmap/safetileart"
+        tools:layout_editor_absoluteY="18dp" />
 
     <GridLayout
         android:id="@+id/grid"
