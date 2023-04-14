@@ -39,7 +39,7 @@
         android:background="#A9FFFFFF"
         android:backgroundTint="#AAC1DA"
         android:focusable="auto"
-        android:text="Game Over"
+        android:text="You won!"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"
         android:textSize="60sp"
