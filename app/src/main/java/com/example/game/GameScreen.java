@@ -51,10 +51,10 @@ public class GameScreen extends AppCompatActivity {
         scoreManager = new ScoreManager(playerMovement, pointDetermination, this);
         carManager = new CarManager(grid, findViewById(R.id.car1), findViewById(R.id.car2),
                 findViewById(R.id.car3), findViewById(R.id.car4), findViewById(R.id.car5));
-        logManager = new LogManager(grid, this, activeSprite,
-                findViewById(R.id.log1), findViewById(R.id.log2),
+        logManager = new LogManager(findViewById(R.id.log1), findViewById(R.id.log2),
                 findViewById(R.id.log3), findViewById(R.id.log4), findViewById(R.id.log5),
                 findViewById(R.id.log6), findViewById(R.id.log7));
+        logManager.setupLogEtc(grid, this, activeSprite);
         collisionManager = new CollisionManager(carManager, logManager, activeSprite, scoreManager,
                 playerMovement);
         playerMovement.setupNavigation();
