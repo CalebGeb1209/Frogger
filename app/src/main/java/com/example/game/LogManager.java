@@ -19,10 +19,8 @@ public class LogManager {
     private GameScreen screen;
     private CollisionManager collisionManager;
 
-    public LogManager(GameGrid grid, GameScreen screen, ImageButton activeSprite,
-                      ImageButton log1, ImageButton log2, ImageButton log3,
+    public LogManager(ImageButton log1, ImageButton log2, ImageButton log3,
                       ImageButton log4, ImageButton log5, ImageButton log6, ImageButton log7) {
-        this.grid = grid;
         this.log1 = log1;
         this.log2 = log2;
         this.log3 = log3;
@@ -30,12 +28,16 @@ public class LogManager {
         this.log5 = log5;
         this.log6 = log6;
         this.log7 = log7;
-        this.screen = screen;
-        this.activeSprite = activeSprite;
         this.logs = new ImageButton[]{log1, log2, log3, log4, log5, log6, log7};
         this.displacements = new int[] {5, 40, 80, 120, 160, 89, 160};
-        this.collisionManager = screen.getCollisionManager();
     } // LogManager
+
+    public void setupLogEtc(GameGrid grid, GameScreen screen, ImageButton activeSprite) {
+        this.grid = grid;
+        this.screen = screen;
+        this.activeSprite = activeSprite;
+        this.collisionManager = screen.getCollisionManager();
+    } // setupLogEtc
 
     public ImageButton getLog(int index) {
         return logs[index];
