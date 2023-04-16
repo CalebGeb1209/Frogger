@@ -1,6 +1,4 @@
 package com.example.game;
-
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -21,7 +19,8 @@ public class LogManager {
     private GameScreen screen;
     private CollisionManager collisionManager;
 
-    public LogManager(GameGrid grid, GameScreen screen, ImageButton activeSprite, ImageButton log1, ImageButton log2, ImageButton log3,
+    public LogManager(GameGrid grid, GameScreen screen, ImageButton activeSprite,
+                      ImageButton log1, ImageButton log2, ImageButton log3,
                       ImageButton log4, ImageButton log5, ImageButton log6, ImageButton log7) {
         this.grid = grid;
         this.log1 = log1;

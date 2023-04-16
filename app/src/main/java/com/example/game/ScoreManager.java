@@ -1,12 +1,7 @@
 package com.example.game;
 
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.TextView;
-
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
 
 public class ScoreManager {
 
@@ -16,7 +11,8 @@ public class ScoreManager {
     private TextView pointDetermination;
     private GameScreen screen;
 
-    public ScoreManager(PlayerMovement playerMovement, TextView pointDetermination, GameScreen screen) {
+    public ScoreManager(PlayerMovement playerMovement,
+                        TextView pointDetermination, GameScreen screen) {
         this.playerMovement = playerMovement;
         this.pointDetermination = pointDetermination;
         maxLevelReached = 15;

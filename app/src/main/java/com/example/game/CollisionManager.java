@@ -1,8 +1,6 @@
 package com.example.game;
 
 import android.graphics.Rect;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
