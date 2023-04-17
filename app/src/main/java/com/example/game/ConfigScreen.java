@@ -38,8 +38,8 @@ public class ConfigScreen extends AppCompatActivity {
         redSprite = (ImageButton) findViewById(R.id.imageButton9);
         greenSprite = (ImageButton) findViewById(R.id.imageButton10);
         // level buttons
-        easyLevel = (Button) findViewById(R.id.button3);
-        mediumLevel = (Button) findViewById(R.id.button2);
+        easyLevel = (Button) findViewById(R.id.restart);
+        mediumLevel = (Button) findViewById(R.id.exit);
         hardLevel = (Button) findViewById(R.id.button4);
         // text edit
         EditText nameEditText = findViewById(R.id.editTextTextPersonName);
